@@ -1,13 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Track from '../Track/Track';
 import './TrackList.css';
+// Component imports
+import Track from '../Track/Track';
 
 class TrackList extends React.Component {
+
+  // Render
   render() {
     return (
       <div className="TrackList">
-          // You will add a map method that renders a set of Track components 
+        {
+          this.props.tracks.map(track => <Track track={track} key={track.id}/>) // Creates a list of Track components by looping through the tracks prop.
+        }
       </div>
     );
   }
