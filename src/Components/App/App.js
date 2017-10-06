@@ -13,7 +13,7 @@ class App extends React.Component {
       searchResults: [{name: 'Photograph', artist: 'Ed Sheeran', album: 'X'}],
       playlistName: 'My playlist',
       playlistTracks: [
-        {name: "Black Baloon", artist: "Goo Goo Dolls", album: "Dizzy Up the Girl"},
+        {name: "Black Balloon", artist: "Goo Goo Dolls", album: "Dizzy Up the Girl"},
         {name: "The Stable Song", artist: "Gregory Alan Isakov", album: "That Sea, The Gambler"},
         {name: "Immigrant Song", artist: "Led Zepplin", album: "Led Zepplin III"}
       ]
@@ -25,16 +25,17 @@ class App extends React.Component {
 
   // Add Track
   addTrack(track) {
-    if (!this.state.playlistTracks.includes(track.id)) { // Checks to see if the track is not in the playlist
-      // this.state.playlistTracks.push(track); // Adds to playlist
-      this.setState({ playlistTracks: this.state.playlistTracks.push(track) }); // Adds track to playlist and updates state
+    if (!this.state.playlistTracks.includes(track.key)) { // Checks to see if the track is not in the playlist
+      this.state.playlistTracks.push(track); // Adds to playlist
+      this.setState({ playlistTracks: this.state.playlistTracks }); // Adds track to playlist and updates state
     }
   }
 
   // Remove Track
   removeTrack(track) {
-    if (this.state.playlistTracks.includes(track)) { // Checks for the track in the playlist
-      this.setState({ playlistTracks: this.state.playlistTracks.remove(track) }); // See line 30
+    if (this.state.playlistTracks.includes(track.key)) { // Checks for the track in the playlist
+      this.state.playlistTracks.remove(track) // Remove from playlist
+      this.setState({ playlistTracks: this.state.playlistTracks }); // See line 30
     }
   }
 
