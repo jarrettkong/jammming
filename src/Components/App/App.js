@@ -25,15 +25,16 @@ class App extends React.Component {
 
   // Add Track
   addTrack(track) {
-    if (!this.state.playlistTracks.includes(track.key)) { // Checks to see if the track is not in the playlist
-      this.state.playlistTracks.push(track); // Adds to playlist
-      this.setState({ playlistTracks: this.state.playlistTracks }); // Adds track to playlist and updates state
+    if (!this.state.playlistTracks.includes(track)) { // Checks to see if the track is not in the playlist
+      let tracks = this.state.playlistTracks;
+      tracks.push(track); // Adds to playlist
+      this.setState({ playlistTracks: tracks }); // Adds track to playlist and updates state
     }
   }
 
   // Remove Track
   removeTrack(track) {
-    if (this.state.playlistTracks.includes(track.key)) { // Checks for the track in the playlist
+    if (this.state.playlistTracks.includes(track.props.key)) { // Checks for the track in the playlist
       this.state.playlistTracks.remove(track) // Remove from playlist
       this.setState({ playlistTracks: this.state.playlistTracks }); // See line 30
     }
