@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: {name: 'Photograph', artist: 'Ed Sheeran', album: 'X'},
+      searchResults: [{name: 'Photograph', artist: 'Ed Sheeran', album: 'X'}],
       playlistName: 'My playlist',
       playlistTracks: [
         {name: "Black Baloon", artist: "Goo Goo Dolls", album: "Dizzy Up the Girl"},
@@ -18,6 +18,24 @@ class App extends React.Component {
         {name: "Immigrant Song", artist: "Led Zepplin", album: "Led Zepplin III"}
       ]
     };
+    // Bind this to the methods
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+  }
+
+  // Add Track
+  addTrack(track) {
+    if (!this.state.playlistTracks.includes(track.id)) { // Checks to see if the track is not in the playlist
+      // this.state.playlistTracks.push(track); // Adds to playlist
+      this.setState({ playlistTracks: this.state.playlistTracks.push(track) }); // Adds track to playlist and updates state
+    }
+  }
+
+  // Remove Track
+  removeTrack(track) {
+    if (this.state.playlistTracks.includes(track)) { // Checks for the track in the playlist
+      this.setState({ playlistTracks: this.state.playlistTracks.remove(track) }); // See line 30
+    }
   }
 
   // Render
@@ -26,10 +44,10 @@ class App extends React.Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar /> // SearchBar component with appropriate props
+          <SearchBar /> {/*SearchBar component with appropriate props*/}
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults}/> // SearchResults component with appropriate props
-            <Playlist /> // Playlist component with appropriate props
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/> {/*SearchResults component with appropriate props*/}
+            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/> {/*Playlist component with appropriate props*/}
           </div>
         </div>
       </div>
