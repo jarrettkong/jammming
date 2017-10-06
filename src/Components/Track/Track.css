@@ -1,3 +1,7 @@
+a {
+  text-decoration: none;
+}
+
 .Track {
   display: flex;
   align-items: center;
