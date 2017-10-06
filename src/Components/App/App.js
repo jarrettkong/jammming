@@ -47,7 +47,7 @@ class App extends React.Component {
           <SearchBar /> {/*SearchBar component with appropriate props*/}
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/> {/*SearchResults component with appropriate props*/}
-            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/> {/*Playlist component with appropriate props*/}
+            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack}/> {/*Playlist component with appropriate props*/}
           </div>
         </div>
       </div>
