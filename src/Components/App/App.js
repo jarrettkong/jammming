@@ -4,6 +4,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../../util/Spotify';
 
 class App extends React.Component {
 
@@ -18,7 +19,7 @@ class App extends React.Component {
         {name: "Immigrant Song", artist: "Led Zepplin", album: "Led Zepplin III"}
       ]
     };
-    
+
     // Bind this to the methods
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -54,8 +55,8 @@ class App extends React.Component {
   }
 
   // Search the Spotify library
-  search(search) {
-    console.log(search);
+  search(term) {
+    this.setState({ searchResults: Spotify.search(term) });
   }
 
   // Render
