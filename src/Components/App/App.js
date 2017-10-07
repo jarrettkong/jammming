@@ -11,13 +11,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [{name: 'Photograph', artist: 'Ed Sheeran', album: 'X'}, {name: 'Madness', artist: 'Muse', album: 'The 2nd Law'}],
+      searchResults: [],
       playlistName: 'My playlist',
-      playlistTracks: [
-        {name: "Black Balloon", artist: "Goo Goo Dolls", album: "Dizzy Up the Girl"},
-        {name: "The Stable Song", artist: "Gregory Alan Isakov", album: "That Sea, The Gambler"},
-        {name: "Immigrant Song", artist: "Led Zepplin", album: "Led Zepplin III"}
-      ]
+      playlistTracks: []
     };
 
     // Bind this to the methods
