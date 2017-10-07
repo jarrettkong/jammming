@@ -52,8 +52,9 @@ class App extends React.Component {
 
   // Search the Spotify library
   search(term) {
-    this.setState({ searchResults: Spotify.search(term) });
-    console.log(this.state.searchResults);
+    Spotify.search(term).then(searchResults => {
+      this.setState({ searchResults: searchResults });
+    });
   }
 
   // Render
@@ -62,9 +63,9 @@ class App extends React.Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar /> {/*SearchBar component with appropriate props*/}
+          <SearchBar onSearch={this.search}/> {/*SearchBar component with appropriate props*/}
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onSearch={this.search}/> {/*SearchResults component with appropriate props*/}
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> {/*SearchResults component with appropriate props*/}
             <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist}/> {/*Playlist component with appropriate props*/}
           </div>
         </div>

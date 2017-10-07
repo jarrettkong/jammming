@@ -18,20 +18,20 @@ const Spotify = {
     const accessSource = window.location.href.match(/access_token=([^&]*)/); // Sources the access token
     const expiresSource = window.location.href.match(/expires_in=([^&]*)/); // Sources the expiration timer
 
-    if (accessToken && expiresIn) {
+    if (accessSource && expiresSource) {
       accessToken = accessSource[1]; // Sets access token
       expiresIn = Number(expiresSource[1]); // Sets expiration time
       window.setTimeout(() => accessToken = '', expiresIn * 1000); // Clears the url and expiration from the URL
       window.history.pushState('Access Token', null, '/');
       return accessToken;
     } else {
-      const redirect = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
-      window.location = redirect; // Redirects the browser to the above access url
+      const accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
+      window.location = accessURL; // Redirects the browser to the above access url
     }
   },
 
   search(term) {
-    Spotify.getAccessToken();
+    accessToken = Spotify.getAccessToken(); // Gets token for search
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: {
       authorization: `Bearer ${accessToken}`
@@ -42,7 +42,8 @@ const Spotify = {
       if (!jsonResponse.tracks) {
         return []; // Returns empty array if no results
       } else {
-        return jsonResponse.tracks.map(track => ({ // Returns search results
+        console.log(jsonResponse.tracks.items);
+        return jsonResponse.tracks.items.map(track => ({ // Returns search results
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
