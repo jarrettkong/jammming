@@ -1,11 +1,11 @@
-import React from 'react';
+// import React from 'react';
 
 let accessToken;
 let expiresIn;
 
 const redirectURI = 'http://localhost:3000/';
 const clientID = '6265a393789a4dbab93b705b20c85829'; // Spotify API client id
-const secret = '1722bc3a175d49638787ae6268f294b3'// Spotify API client secret
+// const secret = '1722bc3a175d49638787ae6268f294b3'// Spotify API client secret
 
 const Spotify = {
 
@@ -25,14 +25,14 @@ const Spotify = {
       window.history.pushState('Access Token', null, '/');
       return accessToken;
     } else {
-      const redirect = 'https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}';
+      const redirect = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
       window.location = redirect; // Redirects the browser to the above access url
     }
   },
 
   search(term) {
     Spotify.getAccessToken();
-    return fetch('https://api.spotify.com/v1/search?type=track&q=${term}', {
+    return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: {
       authorization: `Bearer ${accessToken}`
       }

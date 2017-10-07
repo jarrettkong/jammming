@@ -17,12 +17,12 @@ class SearchBar extends React.Component {
 
   // Search the Spotify library
   search(search) {
-    console.log(search.state);
-    this.props.onSearch(search.state.term);
+    console.log(this.state);
+    this.props.onSearch(this.state.term);
   }
 
   handleTermChange(event) {
-    this.state.term = event.target.value;
+    this.setState({ term: event.target.value });
   }
 
   // Render
