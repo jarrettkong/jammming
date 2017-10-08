@@ -1,11 +1,8 @@
-// import React from 'react';
-
 let accessToken;
 let expiresIn;
 
 const redirectURI = 'http://localhost:3000/';
 const clientID = '6265a393789a4dbab93b705b20c85829'; // Spotify API client id
-// const secret = '1722bc3a175d49638787ae6268f294b3'// Spotify API client secret
 
 const Spotify = {
 
@@ -30,8 +27,9 @@ const Spotify = {
     }
   },
 
+  // Searches the Spotify API
   search(term) {
-    accessToken = Spotify.getAccessToken(); // Gets token for search
+    const accessToken = Spotify.getAccessToken(); // Gets token for search
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: {
       authorization: `Bearer ${accessToken}`
@@ -42,7 +40,6 @@ const Spotify = {
       if (!jsonResponse.tracks) {
         return []; // Returns empty array if no results
       } else {
-        console.log(jsonResponse.tracks.items);
         return jsonResponse.tracks.items.map(track => ({ // Returns search results
           id: track.id,
           name: track.name,
@@ -51,6 +48,40 @@ const Spotify = {
           uri: track.uri
         }));
       }
+    });
+  },
+
+  // Saves the playlist to a user account
+  savePlaylist(playlistName, trackURIs) {
+    const accessToken = Spotify.getAccessToken();
+    const headers = {Authorization: `Bearer ${accessToken}`};
+    let userID;
+
+    // Get user's id
+    return fetch(`https://api.spotify.com/v1/me`, {headers: headers})
+    .then(response => response.json())
+    .then(jsonResponse => {
+      userID = jsonResponse.id;
+
+      console.log(userID);
+
+      // Makes new playlist with user specified name
+      return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/`, {
+        headers: headers,
+        method: 'POST',
+        body: JSON.stringify({ name: playlistName })
+      })
+      .then(response => response.json())
+      .then(jsonResponse => {
+        const playlistID = jsonResponse.id;
+
+        // Saves playlist to user
+        return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+          headers: headers,
+          method: 'POST',
+          body: JSON.stringify({ uris: trackURIs })
+        });
+      });
     });
   }
 }

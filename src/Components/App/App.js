@@ -12,7 +12,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchResults: [],
-      playlistName: 'My playlist',
+      playlistName: '',
       playlistTracks: []
     };
 
@@ -47,7 +47,8 @@ class App extends React.Component {
 
   // Saves and array of Spotify URIs to an array
   savePlaylist() {
-    const trackURIs = this.playlistTracks.map(track => track.uri);
+    const trackURIs = this.state.playlistTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, trackURIs);
   }
 
   // Search the Spotify library
@@ -72,6 +73,6 @@ class App extends React.Component {
       </div>
     );
   }
-}
+};
 
 export default App;

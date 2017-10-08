@@ -18,10 +18,10 @@ class SearchBar extends React.Component {
 
   // Search the Spotify library
   search(search) {
-    console.log(this.state.term);
     this.props.onSearch(this.state.term);
   }
 
+  // Handles the change in the input
   handleTermChange(event) {
     this.setState({ term: event.target.value });
   }
@@ -31,7 +31,7 @@ class SearchBar extends React.Component {
     return (
       <div className="SearchBar">
         <input placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange}/>
-        <a onClick={this.props.onSearch}>SEARCH</a>
+        <a onClick={this.search}>SEARCH</a>
       </div>
     );
   }
